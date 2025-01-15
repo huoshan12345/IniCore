@@ -1,0 +1,45 @@
+{
+  "core": {
+    "filemode": "false",
+    "gitProxy": [
+      "ssh for kernel.org",
+      "default-proxy"
+    ]
+  },
+  "diff": {
+    "external": "/usr/local/bin/diff-wrapper",
+    "renames": "true"
+  },
+  "branch \"devel\"": {
+    "remote": "origin",
+    "merge": "refs/heads/devel"
+  },
+  "include": {
+    "path": [
+      "/path/to/foo.inc",
+      "foo.inc",
+      "~/foo.inc"
+    ]
+  },
+  "includeIf \"gitdir:/path/to/foo/.git\"": {
+    "path": "/path/to/foo.inc"
+  },
+  "includeIf \"gitdir:/path/to/group/\"": {
+    "path": [
+      "/path/to/foo.inc",
+      "foo.inc"
+    ]
+  },
+  "includeIf \"gitdir:~/to/group/\"": {
+    "path": "/path/to/foo.inc"
+  },
+  "includeIf \"onbranch:foo-branch\"": {
+    "path": "foo.inc"
+  },
+  "includeIf \"hasconfig:remote.*.url:https://example.com/**\"": {
+    "path": "foo.inc"
+  },
+  "remote \"origin\"": {
+    "url": "https://example.com/git"
+  }
+}
