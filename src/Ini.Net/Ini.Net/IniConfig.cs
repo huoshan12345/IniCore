@@ -21,7 +21,7 @@ public class IniConfig : IRenderable
         if (Entries.Count > 0)
             builder.AppendLine();
 
-        foreach (var (_, section, _, isLast) in Sections.IndexExt())
+        foreach (var (_, section, _, isLast) in Sections.IndexEx())
         {
             section.Render(builder);
 

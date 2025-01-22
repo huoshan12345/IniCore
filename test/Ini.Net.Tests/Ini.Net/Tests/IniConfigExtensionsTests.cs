@@ -119,6 +119,6 @@ public class IniConfigExtensionsTests
             ],
         };
 
-        AssertExt.EveryMemberEqual(expected, gitConfig);
+        AssertEx.EveryMemberEqual(expected, gitConfig);
     }
 }
