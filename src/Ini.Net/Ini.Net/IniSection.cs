@@ -5,7 +5,7 @@
 /// a collection of key-value entries, optional subsections, and optional comments.
 /// </summary>
 [DebuggerDisplay("{Name}")]
-public class IniSection : IRenderable
+public class IniSection
 {
     /// <summary>
     /// Gets or sets the name of the INI section. This appears in square brackets in an INI file.
@@ -59,7 +59,7 @@ public class IniSection : IRenderable
         var queue = new Queue<(string, List<IniEntry>, List<IniSection>)>();
         queue.Enqueue((Name, Entries, SubSections));
 
-        while (queue.IsNotEmpty())
+        while (queue.Count > 0)
         {
             var (name, entries, sections) = queue.Dequeue();
 

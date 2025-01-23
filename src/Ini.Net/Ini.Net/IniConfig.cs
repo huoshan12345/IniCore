@@ -1,6 +1,6 @@
 ﻿namespace Ini.Net;
 
-public class IniConfig : IRenderable
+public class IniConfig
 {
     /// <summary>
     /// Top-level key-value pairs.

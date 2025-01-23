@@ -20,7 +20,7 @@ public class IniLexer
     {
         while (true)
         {
-            if (_tokens.IsNotEmpty())
+            if (_tokens.Count > 0)
             {
                 var item = _tokens.Dequeue();
                 if (item.Type == IniTokenType.Eof)
@@ -221,14 +221,16 @@ public class IniLexer
         var trailingSpaceCount = 0;
         var disallowEmpty = type.IsIdentifier();
 
-        using var builder = new ValueStringBuilder();
+        using var disposable = StringBuilderHelper.GetCached();
+        var builder = disposable.Value;
+
         while (true)
         {
             // TODO: add support for escape. The quote ' or " can be escaped by \
             var ch = Next();
             if (ch.IsQuote())
             {
-                if (quotes.IsNotEmpty() && ch == quotes.Peek())
+                if (quotes.Count > 0 && ch == quotes.Peek())
                 {
                     quotes.Pop();
                     inQuotes = false;
@@ -319,12 +321,12 @@ public class IniLexer
             {
                 IniTokenType.SectionName => "section name is not ended due to missing ']'",
                 IniTokenType.Key => "key is not ended due to missing '=' or ':'",
-                _ => throw new UnreachableException(),
+                _ => throw new InvalidOperationException("Unexpected type: " + type),
             };
             return Error(error);
         }
 
-        var span = builder.AsSpan(0, builder.Length - trailingSpaceCount);
+        var span = builder.ToString(0, builder.Length - trailingSpaceCount).AsSpan();
 
         if (type.IsIdentifier())
             span = TrimQuotePair(span);
@@ -383,7 +385,7 @@ file static class Extensions
 
     public static bool IsQuote(this char value)
     {
-        return value.ToNullable().IsQuote();
+        return ((char?)value).IsQuote();
     }
 
     public static bool IsQuote([NotNullWhen(true)] this char? value)
@@ -409,21 +411,6 @@ file static class Extensions
     public static bool IsEof([NotNullWhen(false)] this char? value)
     {
         return value is null;
-    }
-
-    public static bool IsNewLineOrEof(this char? value)
-    {
-        return value.IsNewLine() || value.IsEof();
-    }
-
-    public static bool IsValidForIdentifier(this char? value)
-    {
-        // NOTE: strictly, '-' is allowed for name of package or config,
-        // but not allowed for name of option or list.
-        return value is '-' or '_'
-            or >= 'a' and <= 'z'
-            or >= 'A' and <= 'Z'
-            or >= '0' and <= '9';
     }
 
     public static bool IsCommentStarter([NotNullWhen(true)] this char? value)

@@ -5,7 +5,7 @@
 /// Includes options for full-line comments and inline comments.
 /// </summary>
 [DebuggerDisplay("{Key}, {Value}")]
-public class IniEntry : IRenderable
+public class IniEntry
 {
     /// <summary>
     /// Gets or sets the key of the INI entry.

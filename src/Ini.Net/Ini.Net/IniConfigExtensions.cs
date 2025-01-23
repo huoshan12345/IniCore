@@ -42,26 +42,22 @@ public static class IniConfigExtensions
         var entries = new List<IniEntry>();
         var sections = new List<IniSection>();
 
-        foreach (var (key, value) in jsonObject)
+        foreach (var pair in jsonObject)
         {
-            // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
-            switch (value?.GetValueKind())
+            var (key, value) = (pair.Key, pair.Value);
+
+            switch (value)
             {
-                case JsonValueKind.Object:
+                case JsonObject obj:
                 {
-                    var (subEntries, subSections) = CreatePartialSection((JsonObject)value);
+                    var (subEntries, subSections) = CreatePartialSection(obj);
                     var section = new IniSection(key) { Entries = subEntries, SubSections = subSections };
                     sections.Add(section);
                     break;
                 }
-                case JsonValueKind.Array:
+                case JsonArray array:
                 {
-                    // ReSharper disable once LoopCanBeConvertedToQuery
-                    foreach (var v in (JsonArray)value)
-                    {
-                        var entry = new IniEntry(key, GetValue(v));
-                        entries.Add(entry);
-                    }
+                    entries.AddRange(array.Select(v => new IniEntry(key, GetValue(v))));
                     break;
                 }
                 default:
@@ -77,15 +73,11 @@ public static class IniConfigExtensions
 
     private static string GetValue(JsonNode? token)
     {
-        if (token is null)
-            return "";
-
-        var kind = token.GetValueKind();
-        return kind switch
+        return token switch
         {
-            JsonValueKind.Null => "",
-            JsonValueKind.String => token.GetValue<string>() ?? "",
-            _ => token.ToJsonString(),
+            null => "",
+            JsonValue value when value.TryGetValue<string>(out var str) => str,
+            _ => token.ToJsonString()
         };
     }
 
