@@ -16,8 +16,9 @@ Remove-Item $snupkgPath
 
 $verPath = ([io.path]::combine($buildDir, "pkg.version"))
 $ver = Get-Content -Path $verPath
-$key = $Env:MYGET_APIKEY
+$key = $Env:NUGET_APIKEY
 $myget = "https://www.myget.org/F/huoshan12345/api/v2/package"
+$nuget = "https://api.nuget.org/v3/index.json"
 
 if ([string]::IsNullOrEmpty($key)) {
   throw "the api key is empty"

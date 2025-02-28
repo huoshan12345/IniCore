@@ -4,10 +4,10 @@ public static class IniConfigExtensions
 {
     public static JsonObject ToSerializableJsonObject(this IniConfig config)
     {
-        return CreateStructuredJsonObject(config.Entries, config.Sections);
+        return CreateJsonObject(config.Entries, config.Sections);
     }
 
-    private static JsonObject CreateStructuredJsonObject(List<IniEntry> entries, List<IniSection> sections)
+    private static JsonObject CreateJsonObject(List<IniEntry> entries, List<IniSection> sections)
     {
         var jsonObject = new JsonObject();
         foreach (var (key, value) in entries)
@@ -32,7 +32,7 @@ public static class IniConfigExtensions
 
         foreach (var section in sections)
         {
-            jsonObject[section.Name] = CreateStructuredJsonObject(section.Entries, section.SubSections);
+            jsonObject[section.Name] = CreateJsonObject(section.Entries, section.SubSections);
         }
         return jsonObject;
     }

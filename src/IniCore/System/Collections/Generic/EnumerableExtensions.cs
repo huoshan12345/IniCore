@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace System.Collections.Generic;
+﻿namespace System.Collections.Generic;
 
 internal readonly record struct IndexedItem<T>(int Index, T Item, bool IsFirst, bool IsLast);
 
