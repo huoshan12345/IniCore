@@ -16,8 +16,8 @@ public class IniConfigTests
     }.SelectMany(m => new[]
     {
         m,
-        m with { Name = m.Name + "_LF", Input = CRLF_TO_LF.Replace(m.Input) },
-        m with { Name = m.Name + "_CRLF", Input = LF_TO_CRLF.Replace(m.Input) },
+        m with { Name = m.Name + "_LF", Input = RegexReplacer.CRLF_TO_LF.Replace(m.Input) },
+        m with { Name = m.Name + "_CRLF", Input = RegexReplacer.LF_TO_CRLF.Replace(m.Input) },
     }).Select(m => new object[] { m });
 
     [Theory]
@@ -31,12 +31,14 @@ public class IniConfigTests
         }
         else if (name.EndsWith("_CRLF"))
         {
-            foreach (var (item, previous) in input.WithPrevious())
+            char? previous = null;
+            foreach (var item in input)
             {
                 if (item == '\n')
                 {
                     Assert.Equal('\r', previous);
                 }
+                previous = item;
             }
         }
 

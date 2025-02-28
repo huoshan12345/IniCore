@@ -158,6 +158,6 @@ public class IniParserTests
     {
         var (_, input, expected) = testCase;
         var actual = IniParser.Parse(input);
-        AssertEx.EveryMemberEqual(expected, actual);
+        Assert.Equivalent(expected, actual);
     }
 }

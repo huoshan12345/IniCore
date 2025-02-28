@@ -86,8 +86,8 @@ public class GitConfigJsonConverter : JsonConverter<GitConfig>
     {
         if (reader.TokenType == JsonTokenType.Null)
             return null;
- 
-        var token = reader.ReadElement();
+
+        var token = JsonElement.ParseValue(ref reader);
         var typeInfo = options.GetBuiltInJsonTypeInfo<GitConfig>();
         var config = token.Deserialize(typeInfo)!;
 
@@ -95,12 +95,16 @@ public class GitConfigJsonConverter : JsonConverter<GitConfig>
         List<GitConfigIncludeIf>? includeIfs = null;
         List<GitConfigRemote>? remotes = null;
 
-        foreach (var (key, value) in token.EnumerateObject())
+        foreach (var obj in token.EnumerateObject())
         {
+            var key = obj.Name;
+            var value = obj.Value;
+
             if (value.ValueKind == JsonValueKind.Null)
                 continue;
 
-            if (!_regMemberWithBranch.TryMatch(key, out var match))
+            var match = _regMemberWithBranch.Match(key);
+            if (match.Success == false)
                 continue;
 
             var member = match.Groups[1].Value;
@@ -135,9 +139,9 @@ public class GitConfigJsonConverter : JsonConverter<GitConfig>
             }
         }
 
-        config.Branches = branches?.AsSpan().ToArray();
-        config.IncludeIfs = includeIfs?.AsSpan().ToArray();
-        config.Remotes = remotes?.AsSpan().ToArray();
+        config.Branches = branches?.ToArray();
+        config.IncludeIfs = includeIfs?.ToArray();
+        config.Remotes = remotes?.ToArray();
 
         return config;
     }

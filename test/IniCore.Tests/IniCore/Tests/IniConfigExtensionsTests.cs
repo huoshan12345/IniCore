@@ -16,8 +16,8 @@ public class IniConfigExtensionsTests
     }.SelectMany(m => new[]
     {
         m,
-        m with { Name = m.Name + "_LF", Input = CRLF_TO_LF.Replace(m.Input) },
-        m with { Name = m.Name + "_CRLF", Input = LF_TO_CRLF.Replace(m.Input) },
+        m with { Name = m.Name + "_LF", Input = RegexReplacer.CRLF_TO_LF.Replace(m.Input) },
+        m with { Name = m.Name + "_CRLF", Input = RegexReplacer.LF_TO_CRLF.Replace(m.Input) },
     }).Select(m => new object[] { m });
 
     [Theory]
@@ -26,7 +26,7 @@ public class IniConfigExtensionsTests
     {
         var (_, input, expected, _) = testCase;
         var config = IniParser.Parse(input);
-        var actual = config.ToStructuredJsonObject().ToJsonString(new JsonOptions { Indented = true });
+        var actual = config.ToStructuredJsonObject().ToJsonString(new JsonSerializerOptions { WriteIndented = true });
         Assert.Equal(expected, actual);
     }
 
@@ -44,7 +44,7 @@ public class IniConfigExtensionsTests
     public void ToStructuredJsonObject_ToObject_Test()
     {
         var config = IniParser.Parse(CommonGit);
-        var gitConfig = config.ToStructuredJsonObject().ToObject<GitConfig>();
+        var gitConfig = config.ToStructuredJsonObject().Deserialize<GitConfig>();
         Assert.NotNull(gitConfig);
 
         var expected = new GitConfig
@@ -119,6 +119,6 @@ public class IniConfigExtensionsTests
             ],
         };
 
-        AssertEx.EveryMemberEqual(expected, gitConfig);
+        Assert.Equivalent(expected, gitConfig);
     }
 }

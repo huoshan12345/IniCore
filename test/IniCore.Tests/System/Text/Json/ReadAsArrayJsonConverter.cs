@@ -1,4 +1,7 @@
-﻿namespace System.Text.Json;
+﻿using System.Collections;
+using System.Text.Json.Nodes;
+
+namespace System.Text.Json;
 
 /// <summary>
 /// A custom JSON converter that reads a single non-array JSON element as an array containing that element.
