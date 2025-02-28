@@ -136,16 +136,11 @@ CustomConfig? customConfig = jsonObject.Deserialize<CustomConfig>(serializerOpti
 
 ## TODO
 
-- [ ] Add support for reading and writing comments
-- [ ] Implement escaped quote handling in string values
-- [ ] Enhance error handling for malformed sections
-- [ ] Add support for comment preservation during serialization
+- [ ] Add support for reading and writing comments (current parser just ignores comments)
 
-## Notes
+## License
 
-- **Nested Sections**: Use dot notation for hierarchical sections (e.g., `[parent.child]`)
-- **Relative Nesting**: Start section name with dot to nest under previous section
-- **Current Limitations**: Comments are currently ignored during parsing/serialization
+MIT License
 
 ## Contributing
 
