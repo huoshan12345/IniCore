@@ -2,6 +2,11 @@ namespace IniCore;
 
 public static class IniConfigExtensions
 {
+    /// <summary>
+    /// Converts an IniConfig object to a serializable JsonObject.
+    /// </summary>
+    /// <param name="config">The IniConfig instance to convert.</param>
+    /// <returns>A JsonObject representation of the INI configuration.</returns>
     public static JsonObject ToSerializableJsonObject(this IniConfig config)
     {
         return CreateJsonObject(config.Entries, config.Sections);
@@ -81,6 +86,11 @@ public static class IniConfigExtensions
         };
     }
 
+    /// <summary>
+    /// Converts a JsonObject to an IniConfig object.
+    /// </summary>
+    /// <param name="jsonObject">The JsonObject to convert to INI configuration.</param>
+    /// <returns>An IniConfig instance representing the JSON structure.</returns>
     public static IniConfig ToIniConfig(this JsonObject jsonObject)
     {
         var (entries, sections) = CreatePartialSection(jsonObject);

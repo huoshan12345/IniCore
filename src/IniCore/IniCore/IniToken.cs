@@ -1,5 +1,8 @@
 namespace IniCore;
 
+/// <summary>
+/// Represents a token in the lexical analysis of INI content, containing type, value, and position information.
+/// </summary>
 [DebuggerDisplay("{Type}, {Value}")]
 public record IniToken(
     IniTokenType Type,

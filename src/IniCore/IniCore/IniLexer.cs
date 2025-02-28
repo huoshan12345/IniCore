@@ -1,5 +1,8 @@
 namespace IniCore;
 
+/// <summary>
+/// Performs lexical analysis on INI configuration content, breaking it down into tokens.
+/// </summary>
 public class IniLexer
 {
     private readonly string _input; // the string being scanned
@@ -10,12 +13,20 @@ public class IniLexer
     private NextState? _state; // current state
     private readonly Queue<IniToken> _tokens = []; // channel of scanned items
 
+    /// <summary>
+    /// Initializes a new instance of the IniLexer class with the specified input string.
+    /// </summary>
+    /// <param name="input">The INI content to be lexically analyzed.</param>
     public IniLexer(string input)
     {
         _input = input;
         _state = LexStart;
     }
 
+    /// <summary>
+    /// Performs lexical analysis on the input string and returns a sequence of tokens.
+    /// </summary>
+    /// <returns>An enumerable sequence of IniToken objects representing the lexical elements of the INI content.</returns>
     public IEnumerable<IniToken> LexTokens()
     {
         while (true)

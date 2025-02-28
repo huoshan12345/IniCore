@@ -1,7 +1,16 @@
 namespace IniCore;
 
+/// <summary>
+/// Provides functionality to parse INI configuration content into an IniConfig object structure.
+/// </summary>
 public static class IniParser
 {
+    /// <summary>
+    /// Parses a string containing INI format content into an IniConfig object.
+    /// </summary>
+    /// <param name="input">The INI content string to parse.</param>
+    /// <returns>An IniConfig object representing the parsed INI content.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when the input contains syntax errors or invalid INI structure.</exception>
     public static IniConfig Parse(string input)
     {
         var lexer = new IniLexer(input);
