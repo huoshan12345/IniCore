@@ -22,11 +22,11 @@ public class IniConfigExtensionsTests
 
     [Theory]
     [MemberData(nameof(TestCases))]
-    public void ToStructuredJsonObject_Test(TestCase testCase)
+    public void ToSerializableJsonObject_Test(TestCase testCase)
     {
         var (_, input, expected, _) = testCase;
         var config = IniParser.Parse(input);
-        var actual = config.ToStructuredJsonObject().ToJsonString(new JsonSerializerOptions { WriteIndented = true });
+        var actual = config.ToSerializableJsonObject().ToJsonString(new JsonSerializerOptions { WriteIndented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping });
         Assert.Equal(expected, actual);
     }
 
@@ -36,15 +36,15 @@ public class IniConfigExtensionsTests
     {
         var (_, input, _, expected) = testCase;
         var config = IniParser.Parse(input);
-        var actual = config.ToStructuredJsonObject().ToIniConfig().ToString();
+        var actual = config.ToSerializableJsonObject().ToIniConfig().ToString();
         Assert.Equal(expected, actual.TrimEnd());
     }
 
     [Fact]
-    public void ToStructuredJsonObject_ToObject_Test()
+    public void ToSerializableJsonObject_ToObject_Test()
     {
         var config = IniParser.Parse(CommonGit);
-        var gitConfig = config.ToStructuredJsonObject().Deserialize<GitConfig>();
+        var gitConfig = config.ToSerializableJsonObject().Deserialize<GitConfig>();
         Assert.NotNull(gitConfig);
 
         var expected = new GitConfig

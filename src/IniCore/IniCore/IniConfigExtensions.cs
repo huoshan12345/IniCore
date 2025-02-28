@@ -2,7 +2,7 @@ namespace IniCore;
 
 public static class IniConfigExtensions
 {
-    public static JsonObject ToStructuredJsonObject(this IniConfig config)
+    public static JsonObject ToSerializableJsonObject(this IniConfig config)
     {
         return CreateStructuredJsonObject(config.Entries, config.Sections);
     }

@@ -36,6 +36,7 @@ public class GitConfigBranch
 
 public class GitConfigCore
 {
+    [JsonConverter(typeof(BooleanJsonConverter))]
     [JsonPropertyName("filemode")]
     public bool FileMode { get; set; }
 
@@ -48,6 +49,7 @@ public class GitConfigDiff
     [JsonPropertyName("external")]
     public string? External { get; set; }
 
+    [JsonConverter(typeof(BooleanJsonConverter))]
     [JsonPropertyName("renames")]
     public bool Renames { get; set; }
 }
