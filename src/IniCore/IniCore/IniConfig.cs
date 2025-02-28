@@ -3,6 +3,7 @@ namespace IniCore;
 /// <summary>
 /// Represents a complete INI configuration file, containing entries, sections, and comments.
 /// </summary>
+[DebuggerDisplay("{Entries.Count} Entries, {Sections.Count} Sections")]
 public class IniConfig
 {
     /// <summary>

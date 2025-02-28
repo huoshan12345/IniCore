@@ -4,7 +4,7 @@ namespace IniCore;
 /// Represents a section within an INI configuration file. Each section contains a name,
 /// a collection of key-value entries, optional subsections, and optional comments.
 /// </summary>
-[DebuggerDisplay("{Name}")]
+[DebuggerDisplay("{Name}, {Entries.Count} Entries, {SubSections.Count} Sections")]
 public class IniSection
 {
     /// <summary>

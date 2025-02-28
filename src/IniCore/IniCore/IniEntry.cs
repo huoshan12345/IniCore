@@ -4,7 +4,7 @@ namespace IniCore;
 /// Represents a single entry within an INI configuration file, consisting of a key-value pair.
 /// Includes options for full-line comments and inline comments.
 /// </summary>
-[DebuggerDisplay("{Key}, {Value}")]
+[DebuggerDisplay("{Key}={Value}")]
 public class IniEntry
 {
     /// <summary>
