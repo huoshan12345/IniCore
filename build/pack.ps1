@@ -54,7 +54,7 @@ if ($isGithub) {
     Write-Output "Uploading $($file.Basename)"
 
     # Push the .nupkg to NuGet.org (we will detect the .snupkg and push it for you)
-    & dotnet nuget push $file -k $key --source $myget -t 50 --skip-duplicate
+    & dotnet nuget push $file -k $key --source $nuget -t 50 --skip-duplicate
     if ($Lastexitcode -ne 0) {
       throw "failed with exit code $LastExitCode"
     }
