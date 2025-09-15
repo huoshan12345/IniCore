@@ -13,7 +13,7 @@ A .NET library for parsing and generating INI configuration files with support f
 
 ||TargetFramework(s)|Package|
 |----|----|----|
-|IniCore|![netstandard2.0](https://img.shields.io/badge/netstandard-2.0-30a14e.svg) ![net6.0](https://img.shields.io/badge/net-6.0-30a14e.svg) ![net7.0](https://img.shields.io/badge/net-7.0-30a14e.svg) ![net8.0](https://img.shields.io/badge/net-8.0-30a14e.svg) ![net9.0](https://img.shields.io/badge/net-9.0-30a14e.svg) |[![](https://img.shields.io/nuget/v/IniCore?logo=nuget&label=nuget)](https://www.nuget.org/packages/IniCore)|
+|IniCore|![netstandard2.0](https://img.shields.io/badge/netstandard-2.0-30a14e.svg) ![net8.0](https://img.shields.io/badge/net-8.0-30a14e.svg) ![net9.0](https://img.shields.io/badge/net-9.0-30a14e.svg) |[![](https://img.shields.io/nuget/v/IniCore?logo=nuget&label=nuget)](https://www.nuget.org/packages/IniCore)|
 
 ## Installation
 
