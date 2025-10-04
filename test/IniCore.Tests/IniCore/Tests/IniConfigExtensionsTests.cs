@@ -16,8 +16,8 @@ public class IniConfigExtensionsTests
     }.SelectMany(m => new[]
     {
         m,
-        m with { Name = m.Name + "_LF", Input = RegexReplacer.CRLF_TO_LF.Replace(m.Input) },
-        m with { Name = m.Name + "_CRLF", Input = RegexReplacer.LF_TO_CRLF.Replace(m.Input) },
+        m with { Name = m.Name + "_LF", Input = m.Input.CrLfToLf() },
+        m with { Name = m.Name + "_CRLF", Input = m.Input.LfToCrLf() },
     }).Select(m => new object[] { m });
 
     [Theory]
