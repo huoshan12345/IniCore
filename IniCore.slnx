@@ -10,6 +10,11 @@
     <File Path="build/pack.ps1" />
     <File Path="build/pkg.version" />
   </Folder>
+  <Folder Name="/config/">
+    <File Path="LICENSE.TXT" />
+    <File Path="NuGet.Config" />
+    <File Path="README.md" />
+  </Folder>
   <Folder Name="/src/">
     <File Path="src/Directory.Build.props" />
     <File Path="src/Directory.Build.targets" />
